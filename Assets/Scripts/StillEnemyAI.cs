@@ -26,7 +26,6 @@ public class StillEnemyAI : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag("Player");
 		if(this.transform.position.x - player.transform.position.x < detectionRange)
 		{
-			Debug.Log ("detected");
 			playerInSight = true;			
 		}
 		//detect enemy

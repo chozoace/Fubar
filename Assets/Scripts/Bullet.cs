@@ -46,7 +46,36 @@ public class Bullet : MonoBehaviour
 			rigidbody2D.velocity = new Vector2(speed * -1, (speed - yAdjust) * -1);
 	}
 	
-	void OnCollisionEnter2D(Collision2D collision)
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+		if(collision.gameObject.tag != "Player" && isPlayerBullet)
+		{
+			Debug.Log ("hitting");
+			if(collision.tag == "Enemy")
+			{
+				Debug.Log("hitting enemy");
+				collision.gameObject.GetComponent<StillEnemyAI>().takeDamage(damage);
+			}
+			else if(collision.tag == "FleeEnemy")
+			{
+				Debug.Log("hitting enemy");
+				//must fix this
+				collision.gameObject.GetComponent<FleeEnemyAI>().takeDamage(damage);
+			}
+			Destroy(this.gameObject);
+		}
+		else if(!isPlayerBullet && collision.gameObject.tag != "Enemy")
+		{
+			if(collision.gameObject.tag == "Player")
+			{
+				collision.gameObject.GetComponent<PlayerSetUp>().health -= damage;
+			}
+			Debug.Log ("player hit");
+			Destroy(this.gameObject);	
+		}
+	}
+	
+	/*void OnCollisionEnter2D(Collision2D collision)
 	{
 		if(collision.gameObject.tag != "Player" && isPlayerBullet)
 		{
@@ -69,6 +98,6 @@ public class Bullet : MonoBehaviour
 			collision.gameObject.GetComponent<PlayerSetUp>().health -= damage;
 			Destroy (this.gameObject);
 		}
-	}
+	}*/
 	
 }

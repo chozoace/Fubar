@@ -48,6 +48,15 @@ public class FleeEnemyAI : MonoBehaviour
 		Invoke ("destroySelf", deathtime);
 	}
 	
+	public void takeDamage(int theDamage)
+	{
+		health -= theDamage;
+		Debug.Log (health);
+		
+		if(health <= 0)
+			Destroy (gameObject);
+	}
+	
 	void destroySelf()
 	{
 		GameObject.Destroy(this.gameObject);
