@@ -32,6 +32,8 @@ public class Bullet : MonoBehaviour
 	
 	void Update () 
 	{
+		if(isPlayerBullet == false)
+			yAdjust = 1;
 		if(directionX == 0 && directionY == 0)
 			rigidbody2D.velocity = new Vector2(speed, 0);
 		else if(directionX == 1 && directionY == 0)
@@ -43,7 +45,12 @@ public class Bullet : MonoBehaviour
 		else if(directionX == 0 && directionY == -1)
 			rigidbody2D.velocity = new Vector2(speed, (speed - yAdjust) * -1);
 		else if(directionX == 1 && directionY == -1)
+		{
 			rigidbody2D.velocity = new Vector2(speed * -1, (speed - yAdjust) * -1);
+			Debug.Log("shot at angle");
+		}
+		if(isPlayerBullet == false)
+			Debug.Log("bullet update: " + directionY + " " + directionX);
 	}
 	
 	void OnTriggerEnter2D(Collider2D collision)
@@ -74,30 +81,5 @@ public class Bullet : MonoBehaviour
 			Destroy(this.gameObject);	
 		}
 	}
-	
-	/*void OnCollisionEnter2D(Collision2D collision)
-	{
-		if(collision.gameObject.tag != "Player" && isPlayerBullet)
-		{
-			Debug.Log("collided");
-			if(collision.collider.tag == "Enemy")
-			{
-				Debug.Log("hitting enemy");
-				collision.gameObject.GetComponent<StillEnemyAI>().takeDamage(damage);
-			}
-			else if(collision.collider.tag == "FleeEnemy")
-			{
-				Debug.Log("hitting enemy");
-				//must fix this
-				//collision.gameObject.GetCompenent<FleeEnemyAI>().takeDamage(damage);
-			}
-			Destroy(this.gameObject);
-		}
-		else if(collision.gameObject.tag == "Player" && !isPlayerBullet)
-		{
-			collision.gameObject.GetComponent<PlayerSetUp>().health -= damage;
-			Destroy (this.gameObject);
-		}
-	}*/
 	
 }
