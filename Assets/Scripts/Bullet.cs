@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{		
-		Invoke("destroyBullet", 3f);
+		Invoke("destroyBullet", 7f);
 		this.GetComponent<SpriteRenderer> ().sortingLayerName = "New Layer 5";
 	}
 	
