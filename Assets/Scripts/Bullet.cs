@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour
 			rigidbody2D.velocity = new Vector2(speed * -1, (speed - yAdjust) * -1);
 			Debug.Log("shot at angle");
 		}
-		if(isPlayerBullet == false)
+		if(isPlayerBullet == true)
 			Debug.Log("bullet update: " + directionY + " " + directionX);
 	}
 	

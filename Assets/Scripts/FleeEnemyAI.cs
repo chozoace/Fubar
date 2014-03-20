@@ -4,7 +4,7 @@ using System.Collections;
 public class FleeEnemyAI : MonoBehaviour 
 {
 	public int health;
-	public int speed = 5;
+	public int speed = 3;
 	public float deathtime = 2f;
 	
 	bool playerInSight, canFlee, running;
@@ -26,7 +26,6 @@ public class FleeEnemyAI : MonoBehaviour
 		player = GameObject.FindGameObjectWithTag("Player");
 		if(this.transform.position.x - player.transform.position.x < detectionRange)
 		{
-			Debug.Log ("detected");
 			playerInSight = true;			
 		}
 		if(canFlee)
@@ -38,8 +37,12 @@ public class FleeEnemyAI : MonoBehaviour
 				running = true;
 			}
 		}
+		float yVel = this.rigidbody2D.velocity.y;
 		if(running)
-			this.rigidbody2D.velocity = new Vector2(speed, 0);
+		{
+			if(yVel == 0)
+				this.rigidbody2D.velocity = new Vector2(speed, this.rigidbody2D.velocity.y);				
+		}
 	}
 	
 	void flee()
