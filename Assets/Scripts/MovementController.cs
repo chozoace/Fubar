@@ -71,6 +71,7 @@ public class MovementController : MonoBehaviour
 		}
 		if(Input.GetKeyDown (shoot))
 		{			
+			Debug.Log ("player shoot");
 			if(canShoot)
 			{
 				canShoot = myGun.shoot(facing, yDirection);

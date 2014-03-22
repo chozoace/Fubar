@@ -47,10 +47,10 @@ public class Bullet : MonoBehaviour
 		else if(directionX == 1 && directionY == -1)
 		{
 			rigidbody2D.velocity = new Vector2(speed * -1, (speed - yAdjust) * -1);
-			Debug.Log("shot at angle");
+			//Debug.Log("shot at angle");
 		}
-		if(isPlayerBullet == true)
-			Debug.Log("bullet update: " + directionY + " " + directionX);
+		//if(isPlayerBullet == true)
+			//Debug.Log("bullet update: " + directionY + " " + directionX);
 	}
 	
 	void OnTriggerEnter2D(Collider2D collision)
