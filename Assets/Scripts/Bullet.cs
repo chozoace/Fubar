@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class Bullet : MonoBehaviour 
@@ -75,7 +75,7 @@ public class Bullet : MonoBehaviour
 		{
 			if(collision.gameObject.tag == "Player")
 			{
-				collision.gameObject.GetComponent<PlayerSetUp>().health -= damage;
+				collision.gameObject.GetComponent<PlayerSetUp>()._health -= damage;
 			}
 			Debug.Log ("player hit");
 			Destroy(this.gameObject);	
