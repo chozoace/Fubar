@@ -23,10 +23,13 @@ public class MovementController : MonoBehaviour
 	
 	Animator anim;
 
+	private bool isFacingRight;
+
 	void Start () 
 	{
 		myGun.identifyOwner(this.gameObject);
 		anim = GetComponent<Animator>();
+		isFacingRight = true;
 	}
 	
 	void FixedUpdate () 
@@ -38,6 +41,7 @@ public class MovementController : MonoBehaviour
 		float move = Input.GetAxis ("Horizontal");
 		
 		anim.SetFloat ("Speed", move);
+
 		
 	}
 	
@@ -47,7 +51,7 @@ public class MovementController : MonoBehaviour
 		{
 			Application.LoadLevel(Application.loadedLevel);
 		}
-		if(Input.GetKeyDown (aimUp))
+		else if(Input.GetKeyDown (aimUp))
 		{
 			isAimUp = true;
 			yDirection = 1;
@@ -61,13 +65,16 @@ public class MovementController : MonoBehaviour
 		{
 			canRightMove = true;
 			facing = 0;
-			anim.SetInteger("facing", facing);
+			isFacingRight = true;
+			anim.SetBool("isFacingRight", isFacingRight);
 		}
 		if(Input.GetKeyDown (moveLeft))
 		{
 			canLeftMove = true;
 			facing = 1;
-			anim.SetInteger("facing", facing);
+			isFacingRight = false;
+			//anim.SetInteger("facing", facing);
+			anim.SetBool("isFacingRight", isFacingRight);
 		}
 		if(Input.GetKeyDown (shoot))
 		{			
