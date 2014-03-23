@@ -10,14 +10,16 @@ public class PlayerSetUp : MonoBehaviour {
 	private Vector2 _checkPointMarker;
 
 	private Animator anim;
-
-	private static int _deathStateId;
+	
+	private static int _deathRightStateId;
+	private static int _deathLeftStateId;
 
 	private bool _isDead;
 
 	void Awake()
 	{
-		_deathStateId = Animator.StringToHash ("Base Layer.playerDeathRight");
+		_deathRightStateId = Animator.StringToHash ("Base Layer.playerDeathRight");
+		_deathLeftStateId = Animator.StringToHash ("Base Layer.playerDeathLeft");
 	}
 
 	void Start () 
@@ -42,7 +44,13 @@ public class PlayerSetUp : MonoBehaviour {
 		{
 			_isDead = true;
 			anim.SetBool("isDead", _isDead);
-			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathStateId)
+			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathRightStateId)
+			{
+				anim.SetBool("isDead", false);
+				GameController.RestartLevel(this.transform.position, _currentCheckPoint);
+				GameObject.Destroy(this.gameObject);
+			}
+			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathLeftStateId)
 			{
 				anim.SetBool("isDead", false);
 				GameController.RestartLevel(this.transform.position, _currentCheckPoint);
