@@ -5,6 +5,11 @@ public class GameController : MonoBehaviour
 {
 	public GameObject playerPrefab;
 	static GameController instance;
+
+	[SerializeField] GameObject _gernadePrefab;
+	[SerializeField] Transform _gernadeSpawn;
+
+	private GameObject _gernade;
 	
 	GameObject player;
 
@@ -13,6 +18,13 @@ public class GameController : MonoBehaviour
 	{
 		instance = this;
 		SetupLevel(1);
+
+		SpawnGernade ();
+	}
+
+	void SpawnGernade()
+	{
+		_gernade = (GameObject)(Instantiate (_gernadePrefab, _gernadeSpawn.position, Quaternion.identity));
 	}
 	
 	void SetupLevel(int checkpoint)
