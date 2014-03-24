@@ -20,6 +20,7 @@ public class MovementController : MonoBehaviour
  	int facing;
 	
 	bool canShoot = true;
+	bool controlsLocked;
 	
 	Animator anim;
 
@@ -143,14 +144,19 @@ public class MovementController : MonoBehaviour
 	
 	void Update()
 	{
-		CheckKeysDown ();
-		CheckKeysUp ();
-		UpdateMovement ();
+		controlsLocked = GameController.Instance().isControlLocked();
 		
-		if(grounded && Input.GetKeyDown(jump))
+		if(!controlsLocked)
 		{
-			anim.SetBool("Ground", false);
-			rigidbody2D.AddForce(new Vector2(0, jumpForce));
+			CheckKeysDown ();
+			CheckKeysUp ();
+			UpdateMovement ();
+		
+			if(grounded && Input.GetKeyDown(jump))
+			{
+				anim.SetBool("Ground", false);
+				rigidbody2D.AddForce(new Vector2(0, jumpForce));
+			}
 		}
 	}
 }

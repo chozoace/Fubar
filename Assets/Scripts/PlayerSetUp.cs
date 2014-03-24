@@ -7,7 +7,7 @@ public class PlayerSetUp : MonoBehaviour {
 
 	private int _currentCheckPoint;
 
-	private Vector2 _checkPointMarker;
+	private Vector2 _checkPointMarker;//1 or 2
 
 	private Animator anim;
 	
@@ -15,6 +15,8 @@ public class PlayerSetUp : MonoBehaviour {
 	private static int _deathLeftStateId;
 
 	private bool _isDead;
+	[SerializeField] GameObject BlackScreenPrefab;
+	GameObject blackScreen;
 
 	void Awake()
 	{
@@ -24,6 +26,11 @@ public class PlayerSetUp : MonoBehaviour {
 
 	void Start () 
 	{
+		/*Color initialAlpha = Color.black;
+		initialAlpha.a = 0;
+		blackScreen = (GameObject)Instantiate(BlackScreenPrefab, new Vector3(this.transform.position.x, 1.8f, -4), Quaternion.identity);
+		blackScreen.GetComponent<SpriteRenderer>().color = initialAlpha;*/
+	
 		GameObject checkpoint = GameObject.FindGameObjectWithTag("checkpoint");
 		_checkPointMarker = checkpoint.transform.position;
 		anim = GetComponent<Animator> ();
@@ -34,34 +41,45 @@ public class PlayerSetUp : MonoBehaviour {
 	void Update () 
 	{
 		if(this.gameObject.transform.position.x >= _checkPointMarker.x)
-		{
 			_currentCheckPoint = 2;
-		}
 		else 
 			_currentCheckPoint = 1;
+		if(this.gameObject.transform.position.y <= -10)
+			playerDeath ("Fall");
 		
 		if(_health <= 0)
+		{
+			playerDeath("Health");
+		}
+		
+	}
+	
+	public void playerDeath(string condition)
+	{
+		if(condition == "Health")
 		{
 			_isDead = true;
 			anim.SetBool("isDead", _isDead);
 			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathRightStateId)
 			{
 				anim.SetBool("isDead", false);
-				GameController.RestartLevel(this.transform.position, _currentCheckPoint);
+				GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
 				GameObject.Destroy(this.gameObject);
 			}
 			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathLeftStateId)
 			{
 				anim.SetBool("isDead", false);
-				GameController.RestartLevel(this.transform.position, _currentCheckPoint);
+				GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
 				GameObject.Destroy(this.gameObject);
 			}
-			//GameController.RestartLevel(this.transform.position, currentCheckPoint);
-			//GameObject.Destroy(this.gameObject);
 		}
-		
+		else if(condition == "Fall")
+		{
+			_isDead = true;
+			GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
+			GameObject.Destroy(this.gameObject);
+		}
 	}
-
 	void LateUpdate()
 	{
 		if(_health <= 0)
