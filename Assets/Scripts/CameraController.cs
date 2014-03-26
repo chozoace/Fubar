@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour
 {
 	public KeyCode moveLeft, moveRight;
 	bool canLeft, canRight;
+	[SerializeField] float leftBorder;
+	[SerializeField] float rightBorder;
 	GameObject player;
 	float speed = 5;
 	
@@ -56,7 +58,8 @@ public class CameraController : MonoBehaviour
 	void Update () 
 	{
 		player = GameObject.FindGameObjectWithTag("Player");
-		transform.position = new Vector3((float)(player.transform.position.x), 1.8f, -10);
+		float camXPos = Mathf.Clamp((float)(player.transform.position.x), leftBorder, rightBorder);
+		transform.position = new Vector3(camXPos, 1.8f, -10);
 		//CheckKeysUp();
 		//CheckKeysDown();
 		//UpdateMovement();

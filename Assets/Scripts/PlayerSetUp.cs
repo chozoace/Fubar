@@ -23,6 +23,7 @@ public class PlayerSetUp : MonoBehaviour {
 		_deathRightStateId = Animator.StringToHash ("Base Layer.playerDeathRight");
 		_deathLeftStateId = Animator.StringToHash ("Base Layer.playerDeathLeft");
 	}
+	
 
 	void Start () 
 	{
@@ -84,6 +85,7 @@ public class PlayerSetUp : MonoBehaviour {
 	{
 		if(_health <= 0)
 		{
+			MovementController.Instance().lockControls();
 			anim.SetBool("PlayedAnimation", true);
 		}
 	}

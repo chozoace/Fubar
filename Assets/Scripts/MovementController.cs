@@ -7,6 +7,7 @@ public class MovementController : MonoBehaviour
 	bool canRightMove, canLeftMove, isAimUp, isAimDown;
 	int yDirection;
 	bool grounded = false;
+	static MovementController instance;
 	
 	public int health;
 	//public GameObject player;
@@ -28,9 +29,15 @@ public class MovementController : MonoBehaviour
 
 	void Start () 
 	{
+		instance = this;
 		myGun.identifyOwner(this.gameObject);
 		anim = GetComponent<Animator>();
 		isFacingRight = true;
+	}
+	
+	public static MovementController Instance()
+	{
+		return instance;
 	}
 	
 	void FixedUpdate () 
@@ -42,8 +49,16 @@ public class MovementController : MonoBehaviour
 		float move = Input.GetAxis ("Horizontal");
 		
 		anim.SetFloat ("Speed", move);
-
-		
+	}
+	
+	public void lockControls()
+	{
+		GameController.Instance().controlsLocked = true;
+	}
+	
+	public void unlockControls()
+	{
+		GameController.Instance().controlsLocked = false;
 	}
 	
 	void CheckKeysDown()
@@ -65,18 +80,24 @@ public class MovementController : MonoBehaviour
 		if(Input.GetKeyDown (moveRight))
 		{
 			canRightMove = true;
-			facing = 0;
-			isFacingRight = true;
-			anim.SetBool("isFacingRight", isFacingRight);
+			if(!canLeftMove)
+			{
+				facing = 0;
+				isFacingRight = true;
+				anim.SetBool("isFacingRight", isFacingRight);
+			}
 		}
 		if(Input.GetKeyDown (moveLeft))
 		{
 			canLeftMove = true;
-			facing = 1;
-			isFacingRight = false;
-			//anim.SetInteger("facing", facing);
-			anim.SetBool("isFacingRight", isFacingRight);
+			if(!canRightMove)
+			{
+				facing = 1;
+				isFacingRight = false;
+				anim.SetBool("isFacingRight", isFacingRight);
+			}
 		}
+		
 		if(Input.GetKeyDown (shoot))
 		{			
 			Debug.Log ("player shoot");
@@ -85,7 +106,7 @@ public class MovementController : MonoBehaviour
 				canShoot = myGun.shoot(facing, yDirection);
 			}
 		}
-		//Debug.Log(canShoot);
+		//Debug.Log(facing);
 	}
 	
 	void CheckKeysUp()
@@ -130,13 +151,24 @@ public class MovementController : MonoBehaviour
 		Vector2 v = new Vector2();
 		Vector2 currentSpeed = rigidbody2D.velocity;
 		v.y = currentSpeed.y;
-		if(canRightMove)
+		if(canRightMove && canLeftMove)
 		{
+			v.x = 0;
+			rigidbody2D.velocity = v;
+		}
+		else if(canRightMove)
+		{
+			facing = 0;		
+			isFacingRight = true;
+			anim.SetBool("isFacingRight", isFacingRight);
 			v.x = speed;
 			rigidbody2D.velocity = v;
 		}
-		if(canLeftMove)
+		else if(canLeftMove)
 		{
+			facing = 1;
+			isFacingRight = false;
+			anim.SetBool("isFacingRight", isFacingRight);
 			v.x = speed * -1;
 			rigidbody2D.velocity = v;
 		}
@@ -157,6 +189,11 @@ public class MovementController : MonoBehaviour
 				anim.SetBool("Ground", false);
 				rigidbody2D.AddForce(new Vector2(0, jumpForce));
 			}
+		}
+		else if (controlsLocked)
+		{
+			Vector2 v = new Vector2(0, rigidbody2D.velocity.y);
+			rigidbody2D.velocity = v;
 		}
 	}
 }

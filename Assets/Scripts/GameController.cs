@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
 	[SerializeField] GameObject BlackScreenPrefab;
 	GameObject blackScreen;
 	
-	bool controlsLocked;
+	public bool controlsLocked;
 	int currentCheckpoint;//1 or 2
 	
 	Color fadeColor = Color.black;
@@ -110,6 +110,23 @@ public class GameController : MonoBehaviour
 		Invoke ("RemoveBlackScreen", 1f);
 	}
 	
+	public void EndGame()
+	{
+		controlsLocked = true;
+		Color newAlpha = Color.black;
+		newAlpha.a = 1;
+		blackScreen.GetComponent<SpriteRenderer>().color = newAlpha;
+		player = GameObject.FindGameObjectWithTag("Player");
+		Vector3 screenLocation = new Vector3(player.transform.position.x, 1.8f, 0);
+		blackScreen.transform.position = screenLocation;
+		Invoke("LoadCredits", 1f);
+	}
+	
+	public void LoadCredits()
+	{
+		Application.LoadLevel("CreditsScene");
+	}
+	
 	void RemoveBlackScreen()
 	{
 		if(currentCheckpoint == 1)
@@ -119,7 +136,7 @@ public class GameController : MonoBehaviour
 		Color initialAlpha = Color.black;
 		initialAlpha.a = 0;
 		blackScreen.GetComponent<SpriteRenderer>().color = initialAlpha;
-		//controlsLocked = false;
+		controlsLocked = false;
 	}
 	
 	// Update is called once per frame
