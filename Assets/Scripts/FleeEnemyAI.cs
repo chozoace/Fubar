@@ -57,7 +57,10 @@ public class FleeEnemyAI : MonoBehaviour
 		Debug.Log (health);
 		
 		if(health <= 0)
+		{
 			Destroy (gameObject);
+			player.GetComponent<ScoreUI>().adjustScore(100);
+		}
 	}
 	
 	void destroySelf()

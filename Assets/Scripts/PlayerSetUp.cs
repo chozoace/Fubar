@@ -55,6 +55,12 @@ public class PlayerSetUp : MonoBehaviour {
 		
 	}
 	
+	public void takeDamage(int damage)
+	{
+		_health -= damage;
+		this.GetComponent<PlayerHealth>().AdjustCurrentHealth(damage*-1);
+	}
+	
 	public void playerDeath(string condition)
 	{
 		if(condition == "Health")

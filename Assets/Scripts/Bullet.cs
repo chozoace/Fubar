@@ -75,7 +75,7 @@ public class Bullet : MonoBehaviour
 		{
 			if(collision.gameObject.tag == "Player")
 			{
-				collision.gameObject.GetComponent<PlayerSetUp>()._health -= damage;
+				collision.gameObject.GetComponent<PlayerSetUp>().takeDamage(damage);
 				Debug.Log ("player hit");
 			}
 			Destroy(this.gameObject);	
