@@ -40,6 +40,11 @@ public class MovementController : MonoBehaviour
 		return instance;
 	}
 	
+	public int getFacing()
+	{
+		return facing;
+	}
+	
 	void FixedUpdate () 
 	{
 		grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);

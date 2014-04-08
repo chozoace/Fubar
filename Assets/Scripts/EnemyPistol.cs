@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyPistol : Gun
 {
 	public GameObject bulletPrefab;
+	[SerializeField] GameObject flashPrefab;
 	
 	public EnemyPistol()
 	{
@@ -17,8 +18,19 @@ public class EnemyPistol : Gun
 	
 	public override bool shoot(int facing, int yDirection = 0)
 	{		
-		Debug.Log("in enemy shoot " + yDirection);
-		GameObject bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x - .05f, myObject.transform.position.y), Quaternion.identity));
+		GameObject bullet;
+		GameObject flash;
+		//Debug.Log("in enemy shoot " + yDirection);
+		if (facing == 0)
+		{
+			//flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x + .4f, myObject.transform.position.y + .06f), Quaternion.identity));
+			bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f), Quaternion.identity));
+		}
+		else
+		{
+			//flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x - .4f, myObject.transform.position.y + .06f), Quaternion.identity));
+			bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f), Quaternion.identity));
+		}
 		bullet.GetComponent<Bullet>().speed = bulletSpeed;
 		bullet.GetComponent<Bullet>().damage = damage;
 		bullet.GetComponent<Bullet>().directionX = facing;
