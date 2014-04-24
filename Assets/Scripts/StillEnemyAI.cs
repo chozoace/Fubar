@@ -23,6 +23,11 @@ public class StillEnemyAI : MonoBehaviour
 		anim = GetComponent<Animator>();	
 	}
 	
+	public int getFacing()
+	{
+		return facing;
+	}
+	
 	// Update is called once per frame
 	void Update () 
 	{

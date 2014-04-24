@@ -57,7 +57,7 @@ public class Bullet : MonoBehaviour
 	{
 		if(collision.gameObject.tag != "Player" && isPlayerBullet)
 		{
-			Debug.Log ("hitting");
+			//Debug.Log ("hitting");
 			if(collision.tag == "Enemy")
 			{
 				Debug.Log("hitting enemy");
@@ -76,7 +76,7 @@ public class Bullet : MonoBehaviour
 			if(collision.gameObject.tag == "Player")
 			{
 				collision.gameObject.GetComponent<PlayerSetUp>().takeDamage(damage);
-				Debug.Log ("player hit");
+				//Debug.Log ("player hit");
 			}
 			Destroy(this.gameObject);	
 		}

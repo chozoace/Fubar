@@ -6,6 +6,14 @@ public class GameController : MonoBehaviour
 	public GameObject playerPrefab;
 	static GameController instance;
 
+	public enum LevelState
+	{
+		GamePlay,
+		Restarting
+	}
+	
+	LevelState levelState;
+	
 	[SerializeField] GameObject _gernadePrefab;
 	[SerializeField] Transform _gernadeSpawn;
 	[SerializeField] GameObject BlackScreenPrefab;
@@ -15,7 +23,7 @@ public class GameController : MonoBehaviour
 	int currentCheckpoint;//1 or 2
 	
 	Color fadeColor = Color.black;
-	float fadeCounter = .01f;
+	float fadeCounter = .2f;
 
 	private GameObject _gernade;
 	
@@ -31,6 +39,7 @@ public class GameController : MonoBehaviour
 		initialAlpha.a = 0;
 		blackScreen.GetComponent<SpriteRenderer>().color = initialAlpha;
 		controlsLocked = false;
+		levelState = LevelState.GamePlay;
 		
 		SpawnGernade ();
 	}
@@ -81,6 +90,7 @@ public class GameController : MonoBehaviour
 		{
 			GameObject.Destroy(blackScreen);
 			fadeCounter *= -1;
+			levelState = LevelState.GamePlay;
 		}
 		else if (currentAlpha.a == 1)
 		{
@@ -93,21 +103,26 @@ public class GameController : MonoBehaviour
 		}
 		else
 		{
-			fade (checkPointMarker);
+			//fade (checkPointMarker);
 		}
 	}
 	
 	public void RestartLevel(Vector2 playerDeathPos, int checkPointMarker)
-	{		
-		//fade(checkPointMarker);
+	{	
 		controlsLocked = true;
-		Color newAlpha = Color.black;
+		//fade(checkPointMarker);
+		currentCheckpoint = checkPointMarker;
+		Vector3 deathLocation = new Vector3(playerDeathPos.x, 1.8f, 0);
+		blackScreen.transform.position = deathLocation;
+		levelState = LevelState.Restarting;
+		
+		/*Color newAlpha = Color.black;
 		newAlpha.a = 1;
 		blackScreen.GetComponent<SpriteRenderer>().color = newAlpha;
 		Vector3 deathLocation = new Vector3(playerDeathPos.x, 1.8f, 0);
 		blackScreen.transform.position = deathLocation;
 		currentCheckpoint = checkPointMarker;
-		Invoke ("RemoveBlackScreen", 1f);
+		Invoke ("RemoveBlackScreen", 1f);*/
 	}
 	
 	public void EndGame()
@@ -142,6 +157,13 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		if(levelState == LevelState.GamePlay)
+		{
+		
+		}
+		else if(levelState == LevelState.Restarting)
+		{
+			fade (currentCheckpoint);
+		}
 	}
 }

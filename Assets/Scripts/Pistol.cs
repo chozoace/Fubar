@@ -25,13 +25,13 @@ public class Pistol : Gun
 		if(facing == 0)
 		{
 			flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x + .4f, myObject.transform.position.y + .06f), Quaternion.identity));
-			flash.GetComponent<BulletFlashScript>().playerReference(myObject, facing);
+			flash.GetComponent<BulletFlashScript>().Init(myObject, facing);
 			bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
 		}
 		else
 		{
-			flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f), Quaternion.identity));
-			flash.GetComponent<BulletFlashScript>().playerReference(myObject, facing);
+			flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x - .4f, myObject.transform.position.y - .06f), Quaternion.identity));
+			flash.GetComponent<BulletFlashScript>().Init(myObject, facing);
 			bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f) ,Quaternion.identity));
 		}
 		bullet.GetComponent<Bullet>().speed = bulletSpeed;

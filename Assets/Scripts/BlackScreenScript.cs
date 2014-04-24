@@ -8,6 +8,7 @@ public class BlackScreenScript : MonoBehaviour {
 	//static BlackScreenScript instance;
 	// Use this for initialization
 	void Start () {
+		this.GetComponent<SpriteRenderer> ().sortingLayerName = "BlackScreen";
 		//instance = this;
 	}
 	
@@ -16,7 +17,9 @@ public class BlackScreenScript : MonoBehaviour {
 		//Debug.Log ("fade called Before:");
 		//Debug.Log (this.GetComponent<SpriteRenderer>().color.a);
 		//Debug.Log ("After");
-		this.GetComponent<SpriteRenderer>().color = newAlpha;
+		//Color sample = new Color();
+		//sample.a = 0.5f;
+		this.GetComponent<SpriteRenderer>().color = newAlpha; //newAlpha;
 		//Debug.Log (this.GetComponent<SpriteRenderer>().color.a);
 	}
 	// Update is called once per frame
