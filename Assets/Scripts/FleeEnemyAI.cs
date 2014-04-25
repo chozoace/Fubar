@@ -23,25 +23,28 @@ public class FleeEnemyAI : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
-		if(this.transform.position.x - player.transform.position.x < detectionRange)
+		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
 		{
-			playerInSight = true;			
-		}
-		if(canFlee)
-		{
-			if(playerInSight)
+			player = GameObject.FindGameObjectWithTag("Player");
+			if(this.transform.position.x - player.transform.position.x < detectionRange)
 			{
-				flee();
-				canFlee = false;
-				running = true;
+				playerInSight = true;			
 			}
-		}
-		float yVel = this.rigidbody2D.velocity.y;
-		if(running)
-		{
-			if(yVel == 0)
-				this.rigidbody2D.velocity = new Vector2(speed, this.rigidbody2D.velocity.y);				
+			if(canFlee)
+			{
+				if(playerInSight)
+				{
+					flee();
+					canFlee = false;
+					running = true;
+				}
+			}
+			float yVel = this.rigidbody2D.velocity.y;
+			if(running)
+			{
+				if(yVel == 0)
+					this.rigidbody2D.velocity = new Vector2(speed, this.rigidbody2D.velocity.y);				
+			}
 		}
 	}
 	

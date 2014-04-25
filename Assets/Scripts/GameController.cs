@@ -12,7 +12,7 @@ public class GameController : MonoBehaviour
 		Restarting
 	}
 	
-	LevelState levelState;
+	public LevelState levelState;
 	
 	[SerializeField] GameObject _gernadePrefab;
 	[SerializeField] Transform _gernadeSpawn;
@@ -23,7 +23,7 @@ public class GameController : MonoBehaviour
 	int currentCheckpoint;//1 or 2
 	
 	Color fadeColor = Color.black;
-	float fadeCounter = .2f;
+	float fadeCounter = .02f;
 
 	private GameObject _gernade;
 	
@@ -91,6 +91,7 @@ public class GameController : MonoBehaviour
 			GameObject.Destroy(blackScreen);
 			fadeCounter *= -1;
 			levelState = LevelState.GamePlay;
+			controlsLocked = false;
 		}
 		else if (currentAlpha.a == 1)
 		{

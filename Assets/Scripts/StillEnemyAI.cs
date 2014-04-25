@@ -31,45 +31,48 @@ public class StillEnemyAI : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
-		//for facing
-		if(this.transform.position.x - player.transform.position.x < 0)
+		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
 		{
-			facing = 0;
-			anim.SetInteger("facing", facing);
-		}
-		else
-		{
-			facing = 1;
-			anim.SetInteger("facing", facing);
-		}
-		//for distance check
-		if(this.transform.position.x - player.transform.position.x < detectionRange && facing == 1)
-		{
-			playerInSight = true;			
-		}
-		else if(player.transform.position.x - this.transform.position.x < detectionRange && facing == 0)
-		{
-			playerInSight = true;
-		}
-		else 
-			playerInSight = false;
-		//for y angled shooting
-		if(this.transform.position.y - player.transform.position.y < -.3)
-			yDirection = 1;
-		else if(this.transform.position.y - player.transform.position.y > .3)
-			yDirection = -1;
-		else 
-			yDirection = 0;
-		//detect enemy
-		//begin shooting at enemy, straight shots
-		if(playerInSight)
-		{
-			if(canShoot)
+			player = GameObject.FindGameObjectWithTag("Player");
+			//for facing
+			if(this.transform.position.x - player.transform.position.x < 0)
 			{
-				canShoot = myGun.shoot (facing, yDirection);
-				canShoot = false;
-				Invoke("reload", fireRate);
+				facing = 0;
+				anim.SetInteger("facing", facing);
+			}
+			else
+			{
+				facing = 1;
+				anim.SetInteger("facing", facing);
+			}
+			//for distance check
+			if(this.transform.position.x - player.transform.position.x < detectionRange && facing == 1)
+			{
+				playerInSight = true;			
+			}
+			else if(player.transform.position.x - this.transform.position.x < detectionRange && facing == 0)
+			{
+				playerInSight = true;
+			}
+			else 
+				playerInSight = false;
+			//for y angled shooting
+			if(this.transform.position.y - player.transform.position.y < -.3)
+				yDirection = 1;
+			else if(this.transform.position.y - player.transform.position.y > .3)
+				yDirection = -1;
+			else 
+				yDirection = 0;
+			//detect enemy
+			//begin shooting at enemy, straight shots
+			if(playerInSight)
+			{
+				if(canShoot)
+				{
+					canShoot = myGun.shoot (facing, yDirection);
+					canShoot = false;
+					Invoke("reload", fireRate);
+				}
 			}
 		}
 	}

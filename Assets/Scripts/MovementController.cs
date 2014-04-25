@@ -47,13 +47,16 @@ public class MovementController : MonoBehaviour
 	
 	void FixedUpdate () 
 	{
-		grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
-		anim.SetBool("Ground", grounded);
-		anim.SetFloat ("vSpeed", rigidbody2D.velocity.y);
-		
-		float move = Input.GetAxis ("Horizontal");
-		
-		anim.SetFloat ("Speed", move);
+		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
+		{
+			grounded = Physics2D.OverlapCircle(groundCheck.position, groundRadius, whatIsGround);
+			anim.SetBool("Ground", grounded);
+			anim.SetFloat ("vSpeed", rigidbody2D.velocity.y);
+			
+			float move = Input.GetAxis ("Horizontal");
+			
+			anim.SetFloat ("Speed", move);
+		}
 	}
 	
 	public void lockControls()
@@ -182,23 +185,25 @@ public class MovementController : MonoBehaviour
 	void Update()
 	{
 		controlsLocked = GameController.Instance().isControlLocked();
-		
-		if(!controlsLocked)
+		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
 		{
-			CheckKeysDown ();
-			CheckKeysUp ();
-			UpdateMovement ();
-		
-			if(grounded && Input.GetKeyDown(jump))
+			if(!controlsLocked)
 			{
-				anim.SetBool("Ground", false);
-				rigidbody2D.AddForce(new Vector2(0, jumpForce));
+				CheckKeysDown ();
+				CheckKeysUp ();
+				UpdateMovement ();
+			
+				if(grounded && Input.GetKeyDown(jump))
+				{
+					anim.SetBool("Ground", false);
+					rigidbody2D.AddForce(new Vector2(0, jumpForce));
+				}
 			}
-		}
-		else if (controlsLocked)
-		{
-			Vector2 v = new Vector2(0, rigidbody2D.velocity.y);
-			rigidbody2D.velocity = v;
+			else if (controlsLocked)
+			{
+				Vector2 v = new Vector2(0, rigidbody2D.velocity.y);
+				rigidbody2D.velocity = v;
+			}
 		}
 	}
 }

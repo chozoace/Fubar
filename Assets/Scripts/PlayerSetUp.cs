@@ -41,18 +41,20 @@ public class PlayerSetUp : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if(this.gameObject.transform.position.x >= _checkPointMarker.x)
-			_currentCheckPoint = 2;
-		else 
-			_currentCheckPoint = 1;
-		if(this.gameObject.transform.position.y <= -10)
-			playerDeath ("Fall");
-		
-		if(_health <= 0)
+		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
 		{
-			playerDeath("Health");
+			if(this.gameObject.transform.position.x >= _checkPointMarker.x)
+				_currentCheckPoint = 2;
+			else 
+				_currentCheckPoint = 1;
+			if(this.gameObject.transform.position.y <= -10)
+				playerDeath ("Fall");
+			
+			if(_health <= 0)
+			{
+				playerDeath("Health");
+			}
 		}
-		
 	}
 	
 	public void takeDamage(int damage)
@@ -89,10 +91,13 @@ public class PlayerSetUp : MonoBehaviour {
 	}
 	void LateUpdate()
 	{
-		if(_health <= 0)
+		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
 		{
-			MovementController.Instance().lockControls();
-			anim.SetBool("PlayedAnimation", true);
+			if(_health <= 0)
+			{
+				MovementController.Instance().lockControls();
+				anim.SetBool("PlayedAnimation", true);
+			}
 		}
 	}
 }

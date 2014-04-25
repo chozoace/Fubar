@@ -41,27 +41,32 @@ public class CameraController : MonoBehaviour
 	
 	void UpdateMovement()
 	{
-		if(canLeft)
+		if(!GameController.Instance().isControlLocked())
 		{
-			Debug.Log("going Left");
-			this.rigidbody2D.velocity = new Vector2(speed * -1, 0);
+			if(canLeft)
+			{
+				Debug.Log("going Left");
+				this.rigidbody2D.velocity = new Vector2(speed * -1, 0);
+			}
+			if(canRight)
+			{
+				this.rigidbody2D.velocity = new Vector2(speed, 0);
+				Debug.Log("going right");
+				Debug.Log (this.rigidbody2D.velocity.x);
+			}
 		}
-		if(canRight)
-		{
-			this.rigidbody2D.velocity = new Vector2(speed, 0);
-			Debug.Log("going right");
-			Debug.Log (this.rigidbody2D.velocity.x);
-		}
-		
 	}
 	// Update is called once per frame
 	void Update () 
 	{
-		player = GameObject.FindGameObjectWithTag("Player");
-		float camXPos = Mathf.Clamp((float)(player.transform.position.x), leftBorder, rightBorder);
-		transform.position = new Vector3(camXPos, 1.8f, -10);
-		//CheckKeysUp();
-		//CheckKeysDown();
-		//UpdateMovement();
+		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
+		{
+			player = GameObject.FindGameObjectWithTag("Player");
+			float camXPos = Mathf.Clamp((float)(player.transform.position.x), leftBorder, rightBorder);
+			transform.position = new Vector3(camXPos, 1.8f, -10);
+			//CheckKeysUp();
+			//CheckKeysDown();
+			//UpdateMovement();
+		}
 	}
 }
