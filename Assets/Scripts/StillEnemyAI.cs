@@ -71,7 +71,7 @@ public class StillEnemyAI : MonoBehaviour
 				{
 					canShoot = myGun.shoot (facing, yDirection);
 					canShoot = false;
-					Invoke("reload", fireRate);
+					Invoke("reload", fireRate);;
 				}
 			}
 		}

@@ -26,6 +26,7 @@ public class MovementController : MonoBehaviour
 	Animator anim;
 
 	private bool isFacingRight;
+	bool dead;
 
 	void Start () 
 	{
@@ -33,6 +34,7 @@ public class MovementController : MonoBehaviour
 		myGun.identifyOwner(this.gameObject);
 		anim = GetComponent<Animator>();
 		isFacingRight = true;
+		dead = false;
 	}
 	
 	public static MovementController Instance()
@@ -59,9 +61,16 @@ public class MovementController : MonoBehaviour
 		}
 	}
 	
+	public void death()
+	{
+		dead = true;
+	}
+	
 	public void lockControls()
 	{
 		GameController.Instance().controlsLocked = true;
+		
+		
 	}
 	
 	public void unlockControls()
@@ -88,6 +97,7 @@ public class MovementController : MonoBehaviour
 		if(Input.GetKeyDown (moveRight))
 		{
 			canRightMove = true;
+			Debug.Log ("Pressing down right");
 			if(!canLeftMove)
 			{
 				facing = 0;

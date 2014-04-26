@@ -12,6 +12,7 @@ public class Bullet : MonoBehaviour
 	public bool isPlayerBullet;
 	public int directionX = 0; //0 = right, 1 = left
 	public int directionY = 0;
+	bool isVisible;
 	
 	// Use this for initialization
 	void Start () 
@@ -48,6 +49,11 @@ public class Bullet : MonoBehaviour
 		{
 			rigidbody2D.velocity = new Vector2(speed * -1, (speed - yAdjust) * -1);
 			//Debug.Log("shot at angle");
+		}
+		isVisible = renderer.isVisible;
+		if(!isVisible)
+		{
+			GameObject.Destroy(this.gameObject);
 		}
 		//if(isPlayerBullet == true)
 			//Debug.Log("bullet update: " + directionY + " " + directionX);

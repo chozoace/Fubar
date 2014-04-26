@@ -48,10 +48,16 @@ public class PlayerSetUp : MonoBehaviour {
 			else 
 				_currentCheckPoint = 1;
 			if(this.gameObject.transform.position.y <= -10)
+			{
+				//GameController.Instance().controlsLocked = true;
 				playerDeath ("Fall");
+			}
 			
 			if(_health <= 0)
 			{
+				//GameController.Instance().controlsLocked = true;
+				MovementController.Instance().lockControls();
+				//anim.SetBool("PlayedAnimation", true);
 				playerDeath("Health");
 			}
 		}
@@ -71,13 +77,13 @@ public class PlayerSetUp : MonoBehaviour {
 			anim.SetBool("isDead", _isDead);
 			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathRightStateId)
 			{
-				anim.SetBool("isDead", false);
+				//anim.SetBool("isDead", false);
 				GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
 				GameObject.Destroy(this.gameObject);
 			}
 			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathLeftStateId)
 			{
-				anim.SetBool("isDead", false);
+				//anim.SetBool("isDead", false);
 				GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
 				GameObject.Destroy(this.gameObject);
 			}
@@ -89,7 +95,7 @@ public class PlayerSetUp : MonoBehaviour {
 			GameObject.Destroy(this.gameObject);
 		}
 	}
-	void LateUpdate()
+	/*void LateUpdate()
 	{
 		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
 		{
@@ -99,5 +105,5 @@ public class PlayerSetUp : MonoBehaviour {
 				anim.SetBool("PlayedAnimation", true);
 			}
 		}
-	}
+	}*/
 }
