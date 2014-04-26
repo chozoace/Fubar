@@ -182,6 +182,11 @@ public class MovementController : MonoBehaviour
 		}
 	}
 	
+	public void StopAnim()
+	{
+		
+	}
+	
 	void Update()
 	{
 		controlsLocked = GameController.Instance().isControlLocked();
@@ -203,6 +208,8 @@ public class MovementController : MonoBehaviour
 			{
 				Vector2 v = new Vector2(0, rigidbody2D.velocity.y);
 				rigidbody2D.velocity = v;
+				canLeftMove = false;
+				canRightMove = false;
 			}
 		}
 	}

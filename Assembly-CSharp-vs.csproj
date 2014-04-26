@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\PlayerSpawnerController.cs" />
      <Compile Include="Assets\Scripts\ScoreUI.cs" />
      <Compile Include="Assets\Scripts\StillEnemyAI.cs" />
+     <Compile Include="Assets\Scripts\WhiteScreenScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

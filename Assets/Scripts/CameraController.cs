@@ -10,6 +10,17 @@ public class CameraController : MonoBehaviour
 	[SerializeField] float rightBorder;
 	GameObject player;
 	float speed = 5;
+	static CameraController instance;
+	
+	void Start()
+	{
+		instance = this;
+	}
+	
+	public static CameraController Instance()
+	{
+		return instance;
+	}
 	
 	void CheckKeysUp()
 	{

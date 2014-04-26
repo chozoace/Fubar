@@ -9,7 +9,8 @@ public class GameController : MonoBehaviour
 	public enum LevelState
 	{
 		GamePlay,
-		Restarting
+		Restarting,
+		FlashBanged
 	}
 	
 	public LevelState levelState;
@@ -23,9 +24,10 @@ public class GameController : MonoBehaviour
 	int currentCheckpoint;//1 or 2
 	
 	Color fadeColor = Color.black;
-	float fadeCounter = .02f;
+	float fadeCounter = .01f;
 
 	private GameObject _gernade;
+	bool gernadeSpawned;
 	
 	GameObject player;
 
@@ -40,8 +42,9 @@ public class GameController : MonoBehaviour
 		blackScreen.GetComponent<SpriteRenderer>().color = initialAlpha;
 		controlsLocked = false;
 		levelState = LevelState.GamePlay;
+		gernadeSpawned = false;
 		
-		SpawnGernade ();
+		//SpawnGernade ();
 	}
 	
 	public bool isControlLocked()
@@ -72,14 +75,14 @@ public class GameController : MonoBehaviour
 		else
 		{
 			Debug.Log("second checkpoint");
-			playerSpawnPoint = GameObject.FindGameObjectWithTag("playerSpawn2");
+			playerSpawnPoint = GameObject.FindGameObjectWithTag("playerSpawn");
 		}
 		Vector2 playerSpawnPos = new Vector2(playerSpawnPoint.transform.position.x, playerSpawnPoint.transform.position.y);
 		player = (GameObject)(Instantiate(playerPrefab, playerSpawnPos, Quaternion.identity));
 		player.GetComponent<SpriteRenderer> ().sortingLayerName = "New Layer 5";
 	}
 	
-	public void fade(int checkPointMarker)
+	public void fade(int checkPointMarker = 1)
 	{
 		Color currentAlpha = blackScreen.GetComponent<SpriteRenderer>().color;
 		currentAlpha.a = Mathf.Clamp(blackScreen.GetComponent<SpriteRenderer>().color.a + fadeCounter,0,1);
@@ -95,18 +98,21 @@ public class GameController : MonoBehaviour
 		}
 		else if (currentAlpha.a == 1)
 		{
-			if(checkPointMarker == 1)
-				Application.LoadLevel(Application.loadedLevel);
+			//if(checkPointMarker == 1)
+			Application.LoadLevel(Application.loadedLevel);
 			instance.SetupLevel(checkPointMarker);
 			Debug.Log("Restarting level via manager");
+			//Vector2 startPos = new Vector3(-2.2f, 1.8f, -10f);
+			//CameraController.Instance().transform.position = startPos;
 			fadeCounter *= -1;
-			fade (checkPointMarker);
+			Invoke("fade", 2f);
+			//fade (checkPointMarker);
 		}
 		else
 		{
 			//fade (checkPointMarker);
 		}
-	}
+	}	
 	
 	public void RestartLevel(Vector2 playerDeathPos, int checkPointMarker)
 	{	
@@ -160,11 +166,22 @@ public class GameController : MonoBehaviour
 	{
 		if(levelState == LevelState.GamePlay)
 		{
-		
+			if(player.transform.position.x >= 80 && !gernadeSpawned)
+			{
+				Debug.Log ("grenade made " + _gernadeSpawn.position.x);
+				SpawnGernade();
+				controlsLocked = true;
+				gernadeSpawned = true;
+			}
 		}
 		else if(levelState == LevelState.Restarting)
 		{
 			fade (currentCheckpoint);
+		}
+		else if(levelState == LevelState.FlashBanged)
+		{
+			Vector2 temp = new Vector2(80, player.transform.position.y);
+			player.transform.position = temp;
 		}
 	}
 }

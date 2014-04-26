@@ -6,6 +6,14 @@ public class Gernade : MonoBehaviour {
 	[SerializeField] PhysicsMaterial2D _bounceMaterial;
 	[SerializeField] float _bounceReduction;
 	[SerializeField] float _leftForce;
+	[SerializeField] GameObject WhiteScreenPrefab;
+	GameObject whiteScreen;
+	
+	bool madeContact = false;
+	bool startedFade = false;
+	Vector2 newGernadePos = new Vector2(0, -20);
+	
+	float fadeCounter = -.01f;
 
 	private LensFlare _lensFlare;
 
@@ -21,6 +29,24 @@ public class Gernade : MonoBehaviour {
 	{
 		_lensFlare.enabled = false;
 		DestroyObject (this.gameObject);
+		GameController.Instance().controlsLocked = false;
+		
+	}
+	
+	void fadeOut()
+	{
+		Color currentAlpha = whiteScreen.GetComponent<SpriteRenderer>().color;
+		currentAlpha.a = Mathf.Clamp(whiteScreen.GetComponent<SpriteRenderer>().color.a + fadeCounter,0,1);
+		whiteScreen.GetComponent<WhiteScreenScript>().fade(currentAlpha);
+		startedFade = true;
+		//Debug.Log (currentAlpha);
+		
+		if(currentAlpha.a == 0)
+		{
+			GameController.Instance().levelState = GameController.LevelState.GamePlay;
+			GameController.Instance().controlsLocked = false;
+			DestroyObject(this.gameObject);
+		}
 	}
 
 	void Awake() {
@@ -34,7 +60,12 @@ public class Gernade : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
+		if(GameController.Instance().levelState == GameController.LevelState.FlashBanged && startedFade)
+		{
+			fadeOut();
+		}
 	}
 
 
@@ -45,8 +76,17 @@ public class Gernade : MonoBehaviour {
 		}
 
 		if (other.gameObject.tag == "Player") {
-			_lensFlare.enabled = true;
-			Invoke("TurnOffFlare", 2);
+			if(!madeContact)
+			{
+				whiteScreen = (GameObject)Instantiate(WhiteScreenPrefab, new Vector3(other.transform.position.x, 1.8f, 0), Quaternion.identity);
+				GameController.Instance().levelState = GameController.LevelState.FlashBanged;
+				GetComponent<SpriteRenderer>().enabled = false;
+				Invoke("fadeOut", 2f);
+				madeContact = true;
+				//_bounceMaterial.bounciness = 0;
+			}
+			//_lensFlare.enabled = true;
+			//Invoke("TurnOffFlare", 2);
 		}
 
 	}
