@@ -10,17 +10,28 @@ public class FleeEnemyAI : MonoBehaviour
 	bool playerInSight, canFlee, running;
 	int maxDistance;
 	GameObject player;
+	Animator anim;
 	
 	int facing = 1;
 	public float detectionRange = 5f;
 	// Use this for initialization
 	void Start () 
 	{
+		anim = this.GetComponent<Animator>();
 		canFlee = true;
 		running = false;
 	}
 	
 	// Update is called once per frame
+	
+	void FixedUpdate()
+	{
+		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
+		{
+			float mySpeed = this.rigidbody2D.velocity.x;
+			anim.SetFloat("Speed", mySpeed);
+		}
+	}
 	void Update () 
 	{
 		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
@@ -43,7 +54,11 @@ public class FleeEnemyAI : MonoBehaviour
 			if(running)
 			{
 				if(yVel == 0)
-					this.rigidbody2D.velocity = new Vector2(speed, this.rigidbody2D.velocity.y);				
+				{
+					Debug.Log("here running");
+					this.rigidbody2D.velocity = new Vector2(speed, this.rigidbody2D.velocity.y);
+					Debug.Log(this.rigidbody2D.velocity.x);	
+				}			
 			}
 		}
 	}
@@ -62,7 +77,7 @@ public class FleeEnemyAI : MonoBehaviour
 		if(health <= 0)
 		{
 			Destroy (gameObject);
-			player.GetComponent<ScoreUI>().adjustScore(100);
+			player.GetComponent<ScoreUI>().adjustScore(-50);
 		}
 	}
 	
