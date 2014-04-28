@@ -17,11 +17,13 @@ public class PlayerSetUp : MonoBehaviour {
 	private bool _isDead;
 	[SerializeField] GameObject BlackScreenPrefab;
 	GameObject blackScreen;
+	bool deathCounter;
 
 	void Awake()
 	{
 		_deathRightStateId = Animator.StringToHash ("Base Layer.playerDeathRight");
 		_deathLeftStateId = Animator.StringToHash ("Base Layer.playerDeathLeft");
+		deathCounter = false;
 	}
 	
 
@@ -43,6 +45,7 @@ public class PlayerSetUp : MonoBehaviour {
 	{
 		if(GameController.Instance().levelState == GameController.LevelState.GamePlay)
 		{
+			//Debug.Log(anim.GetCurrentAnimatorStateInfo(0));
 			if(this.gameObject.transform.position.x >= _checkPointMarker.x)
 				_currentCheckPoint = 2;
 			else 
@@ -75,21 +78,32 @@ public class PlayerSetUp : MonoBehaviour {
 		{
 			_isDead = true;
 			anim.SetBool("isDead", _isDead);
-			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathRightStateId)
+			if(MovementController.Instance().getFacing() == 0 && !deathCounter)
 			{
-				//anim.SetBool("isDead", false);
+				anim.Play (_deathRightStateId, 0, 0);
+				deathCounter = true;
+			}
+			
+			else if(MovementController.Instance().getFacing() == 1 && !deathCounter)
+			{
+				anim.Play (_deathLeftStateId, 0, 0);
+				deathCounter = true;
+			}
+			
+			if(anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).nameHash == _deathRightStateId)
+			{
 				GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
 				GameObject.Destroy(this.gameObject);
 			}
-			if(anim.IsInTransition(0) && anim.GetNextAnimatorStateInfo(0).nameHash == _deathLeftStateId)
+			if(anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).nameHash == _deathLeftStateId)
 			{
-				//anim.SetBool("isDead", false);
 				GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
 				GameObject.Destroy(this.gameObject);
 			}
 		}
 		else if(condition == "Fall")
 		{
+			
 			_isDead = true;
 			GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
 			GameObject.Destroy(this.gameObject);
