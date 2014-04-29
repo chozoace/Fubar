@@ -84,13 +84,13 @@ public class MovementController : MonoBehaviour
 		{
 			Application.LoadLevel(Application.loadedLevel);
 		}
-		else if(Input.GetKey (aimUp) && this.rigidbody2D.velocity.x == 0)
+		else if(Input.GetKey (aimUp) && this.rigidbody2D.velocity.x == 0 && this.rigidbody2D.velocity.y == 0)
 		{
 			isAimUp = true;
 			yDirection = 1;
 			anim.SetBool("AimUp", isAimUp);
 		}
-		if(Input.GetKey (aimDown) && this.rigidbody2D.velocity.x == 0)
+		if(Input.GetKey (aimDown) && this.rigidbody2D.velocity.x == 0 && this.rigidbody2D.velocity.y == 0)
 		{
 			isAimDown = true;
 			yDirection = -1;
@@ -225,7 +225,7 @@ public class MovementController : MonoBehaviour
 				canLeftMove = false;
 				canRightMove = false;
 			}
-			if(this.rigidbody2D.velocity.x != 0)
+			if(this.rigidbody2D.velocity.x != 0 || this.rigidbody2D.velocity.y != 0)
 			{
 				isAimUp = false;
 				isAimDown = false;

@@ -1,10 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\BulletFlashScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Pistol.cs">
     <Files>
-      <File FileName="Assets\Scripts\BulletFlashScript.cs" Line="90" Column="8" />
-      <File FileName="Assets\Scripts\EnemyPistol.cs" Line="67" Column="164" />
-      <File FileName="Assets\Scripts\Pistol.cs" Line="67" Column="163" />
+      <File FileName="Assets\Scripts\Pistol.cs" Line="61" Column="135" />
+      <File FileName="Assets\Scripts\BulletFlashScript.cs" Line="106" Column="115" />
+      <File FileName="Assets\Scripts\EnemyPistol.cs" Line="39" Column="136" />
+      <File FileName="Assets\Scripts\MovementController.cs" Line="123" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

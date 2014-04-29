@@ -87,11 +87,11 @@ public class BulletFlashScript : MonoBehaviour
 						//up
 						if(player.tag == "Player")
 						{
-							
+							this.transform.position = new Vector2(player.transform.position.x + .23f, player.transform.position.y + .37f);
 						}
 						else if(player.tag == "Enemy")
 						{
-							
+							this.transform.position = new Vector2(player.transform.position.x + .23f, player.transform.position.y + .37f);
 						}
 					}
 					else if(myYdirection == -1)
@@ -99,10 +99,11 @@ public class BulletFlashScript : MonoBehaviour
 						//down
 						if(player.tag == "Player")
 						{
-							
+							this.transform.position = new Vector2(player.transform.position.x + .23f, player.transform.position.y - .3f);
 						}
 						else if(player.tag == "Enemy")
 						{
+							this.transform.position = new Vector2(player.transform.position.x + .23f, player.transform.position.y - .25f);
 							
 						}
 					}
@@ -125,10 +126,12 @@ public class BulletFlashScript : MonoBehaviour
 						//up
 						if(player.tag == "Player")
 						{
+							this.transform.position = new Vector2(player.transform.position.x - .23f, player.transform.position.y + .37f);
 							
 						}
 						else if(player.tag == "Enemy")
 						{
+							this.transform.position = new Vector2(player.transform.position.x - .23f, player.transform.position.y + .37f);
 							
 						}
 						if(currentScale.x != -1)
@@ -143,10 +146,12 @@ public class BulletFlashScript : MonoBehaviour
 						//down
 						if(player.tag == "Player")
 						{
+							this.transform.position = new Vector2(player.transform.position.x - .23f, player.transform.position.y - .3f);
 							
 						}
 						else if(player.tag == "Enemy")
 						{
+							this.transform.position = new Vector2(player.transform.position.x - .23f, player.transform.position.y - .25f);
 							
 						}
 						if(currentScale.x != -1)

@@ -30,21 +30,21 @@ public class Pistol : Gun
 			{
 				flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x + .4f, myObject.transform.position.y + .06f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing,yDirection);
-				//bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
+				bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
 			}
 			else if(yDirection == 1)
 			{
 				flash = (GameObject)(Instantiate (upFlashPrefab, new Vector2(myObject.transform.position.x + .4f, myObject.transform.position.y + .06f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing,yDirection);
-				//bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
+				bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y + .2f),Quaternion.identity));
 			}
-			else if(yDirection == -1)
+			else //ydirection = -1
 			{
 				flash = (GameObject)(Instantiate (downFlashPrefab, new Vector2(myObject.transform.position.x + .4f, myObject.transform.position.y + .06f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing,yDirection);
-				//bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
+				bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .48f),Quaternion.identity));
 			}
-			bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
+			//bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
 		}
 		else
 		{
@@ -52,21 +52,21 @@ public class Pistol : Gun
 			{
 				flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x - .4f, myObject.transform.position.y - .06f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
-				//bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f) ,Quaternion.identity));
+				bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f) ,Quaternion.identity));
 			}
 			else if(yDirection == 1)
 			{
 				flash = (GameObject)(Instantiate (upFlashPrefab, new Vector2(myObject.transform.position.x - .4f, myObject.transform.position.y - .06f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
-				//bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f) ,Quaternion.identity));
+				bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y + .2f) ,Quaternion.identity));
 			}
-			else if(yDirection == -1)
+			else //ydirection = -1
 			{
 				flash = (GameObject)(Instantiate (downFlashPrefab, new Vector2(myObject.transform.position.x - .4f, myObject.transform.position.y - .06f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
-				//bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f) ,Quaternion.identity));
+				bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y -.48f) ,Quaternion.identity));
 			}
-			bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f) ,Quaternion.identity));
+			//bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f) ,Quaternion.identity));
 		}
 		bullet.GetComponent<Bullet>().speed = bulletSpeed;
 		bullet.GetComponent<Bullet>().damage = damage;
