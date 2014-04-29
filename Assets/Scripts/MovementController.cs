@@ -84,15 +84,17 @@ public class MovementController : MonoBehaviour
 		{
 			Application.LoadLevel(Application.loadedLevel);
 		}
-		else if(Input.GetKeyDown (aimUp))
+		else if(Input.GetKey (aimUp) && this.rigidbody2D.velocity.x == 0)
 		{
 			isAimUp = true;
 			yDirection = 1;
+			anim.SetBool("AimUp", isAimUp);
 		}
-		if(Input.GetKeyDown (aimDown))
+		if(Input.GetKey (aimDown) && this.rigidbody2D.velocity.x == 0)
 		{
 			isAimDown = true;
 			yDirection = -1;
+			anim.SetBool("AimDown", isAimDown);
 		}
 		if(Input.GetKeyDown (moveRight))
 		{
@@ -132,10 +134,12 @@ public class MovementController : MonoBehaviour
 		if(Input.GetKeyUp (aimUp))
 		{
 			isAimUp = false;
+			anim.SetBool("AimUp", isAimUp);
 		}
 		if(Input.GetKeyUp (aimDown))
 		{
 			isAimDown = false;
+			anim.SetBool("AimDown", isAimDown);
 		}
 		
 		if(!isAimUp && !isAimDown)
@@ -220,6 +224,15 @@ public class MovementController : MonoBehaviour
 				rigidbody2D.velocity = v;
 				canLeftMove = false;
 				canRightMove = false;
+			}
+			if(this.rigidbody2D.velocity.x != 0)
+			{
+				isAimUp = false;
+				isAimDown = false;
+			}
+			else
+			{
+
 			}
 		}
 	}

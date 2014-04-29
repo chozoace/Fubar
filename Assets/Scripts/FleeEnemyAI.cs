@@ -55,9 +55,9 @@ public class FleeEnemyAI : MonoBehaviour
 			{
 				if(yVel == 0)
 				{
-					Debug.Log("here running");
+					//Debug.Log("here running");
 					this.rigidbody2D.velocity = new Vector2(speed, this.rigidbody2D.velocity.y);
-					Debug.Log(this.rigidbody2D.velocity.x);	
+					//Debug.Log(this.rigidbody2D.velocity.x);	
 				}			
 			}
 		}

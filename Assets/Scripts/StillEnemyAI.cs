@@ -58,11 +58,23 @@ public class StillEnemyAI : MonoBehaviour
 				playerInSight = false;
 			//for y angled shooting
 			if(this.transform.position.y - player.transform.position.y < -.3)
+			{
 				yDirection = 1;
+				anim.SetBool("AimUp", true);
+				anim.SetBool("AimDown", false);
+			}
 			else if(this.transform.position.y - player.transform.position.y > .3)
+			{
 				yDirection = -1;
+				anim.SetBool("AimUp", false);
+				anim.SetBool("AimDown", true);
+			}
 			else 
+			{
 				yDirection = 0;
+				anim.SetBool("AimUp", false);
+				anim.SetBool("AimDown", false);
+			}
 			//detect enemy
 			//begin shooting at enemy, straight shots
 			if(playerInSight)

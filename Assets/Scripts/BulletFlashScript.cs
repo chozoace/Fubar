@@ -9,6 +9,7 @@ public class BulletFlashScript : MonoBehaviour
 	bool playerReferenced;
 	public GameObject player;
 	Vector3 currentScale;
+	int myYdirection;
 	
 	void Awake()
 	{
@@ -31,9 +32,10 @@ public class BulletFlashScript : MonoBehaviour
 		playerReferenced = false;*/
 	}
 	
-	public void Init(GameObject playerRef, int facingRef)
+	public void Init(GameObject playerRef, int facingRef, int yDirection)
 	{
 		//Debug.Log ("at player ref function");
+		myYdirection = yDirection;
 		player = playerRef;
 		facing = facingRef;
 		if(facing == -1)
@@ -72,21 +74,87 @@ public class BulletFlashScript : MonoBehaviour
 			{
 				if(facing == 0)
 				{
-					//Debug.Log("in right shoot");
-					if(player.tag == "Player")
-						this.transform.position = new Vector2(player.transform.position.x + .4f, player.transform.position.y + .06f);
-					else if(player.tag == "Enemy")
-						this.transform.position = new Vector2(player.transform.position.x + .2f, player.transform.position.y + .06f);
+					if(myYdirection == 0)
+					{
+						//Debug.Log("in right shoot");
+						if(player.tag == "Player")
+							this.transform.position = new Vector2(player.transform.position.x + .4f, player.transform.position.y + .06f);
+						else if(player.tag == "Enemy")
+							this.transform.position = new Vector2(player.transform.position.x + .2f, player.transform.position.y + .06f);
+					}
+					else if(myYdirection == 1)
+					{
+						//up
+						if(player.tag == "Player")
+						{
+							
+						}
+						else if(player.tag == "Enemy")
+						{
+							
+						}
+					}
+					else if(myYdirection == -1)
+					{
+						//down
+						if(player.tag == "Player")
+						{
+							
+						}
+						else if(player.tag == "Enemy")
+						{
+							
+						}
+					}
 				}
 				else if(facing == 1)
 				{
-					//Debug.Log ("In left shoot");
-					this.transform.position = new Vector2(player.transform.position.x - .4f, player.transform.position.y + .06f);
-					if(currentScale.x != -1)
+					if(myYdirection == 0)
 					{
-						currentScale = transform.localScale;
-						currentScale.x *= -1;
-						transform.localScale = currentScale;
+						//Debug.Log ("In left shoot");
+						this.transform.position = new Vector2(player.transform.position.x - .4f, player.transform.position.y + .06f);
+						if(currentScale.x != -1)
+						{
+							currentScale = transform.localScale;
+							currentScale.x *= -1;
+							transform.localScale = currentScale;
+						}
+					}
+					else if(myYdirection == 1)
+					{
+						//up
+						if(player.tag == "Player")
+						{
+							
+						}
+						else if(player.tag == "Enemy")
+						{
+							
+						}
+						if(currentScale.x != -1)
+						{
+							currentScale = transform.localScale;
+							currentScale.x *= -1;
+							transform.localScale = currentScale;
+						}
+					}
+					else if(myYdirection == -1)
+					{
+						//down
+						if(player.tag == "Player")
+						{
+							
+						}
+						else if(player.tag == "Enemy")
+						{
+							
+						}
+						if(currentScale.x != -1)
+						{
+							currentScale = transform.localScale;
+							currentScale.x *= -1;
+							transform.localScale = currentScale;
+						}
 					}
 				}
 			}
