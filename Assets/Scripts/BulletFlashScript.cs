@@ -55,7 +55,8 @@ public class BulletFlashScript : MonoBehaviour
 	
 	void Update () 
 	{
-		//Debug.Log (playerReferenced);
+		//find a way to fix the weird flip before bullet flash appears. Bullet flash gets called from pistol or enemy
+		//pistol
 		if(playerReferenced == true)
 		{
 			//Debug.Log ("Current Scale:" + currentScale.x);
