@@ -79,7 +79,7 @@ public class BulletFlashScript : MonoBehaviour
 					{
 						//Debug.Log("in right shoot");
 						if(player.tag == "Player")
-							this.transform.position = new Vector2(player.transform.position.x + .4f, player.transform.position.y + .06f);
+							this.transform.position = new Vector2(player.transform.position.x + .3f, player.transform.position.y - 0f);
 						else if(player.tag == "Enemy")
 							this.transform.position = new Vector2(player.transform.position.x + .2f, player.transform.position.y + .06f);
 					}

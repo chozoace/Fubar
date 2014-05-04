@@ -28,7 +28,7 @@ public class Pistol : Gun
 		{
 			if(yDirection == 0)
 			{
-				flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x + .4f, myObject.transform.position.y + .06f), Quaternion.identity));
+				flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x + .3f, myObject.transform.position.y + .06f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing,yDirection);
 				bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
 			}
