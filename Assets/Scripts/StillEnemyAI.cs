@@ -132,15 +132,12 @@ public class StillEnemyAI : MonoBehaviour
 		else if(facing == 0) {
 			anim.Play (_deathLeftStateID, 0, 0);
 		}
-
-		Debug.Log(anim.IsInTransition(0));
+		
 		if(anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).nameHash == 154171580) {
-			Debug.Log("D");
 			GameObject.Destroy(this.gameObject);
 		}
 
 		if(anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).nameHash == 889664582) {
-			Debug.Log("D");
 			GameObject.Destroy(this.gameObject);
 		}
 	}
