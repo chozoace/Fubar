@@ -20,6 +20,8 @@ public class EnemyPistol : Gun
 	
 	public override bool shoot(int facing, int yDirection = 0)
 	{		
+		SoundEffectHelper.Instance.MakeSoundEffect(SoundEffectHelper.SoundEffects.MachineGun);
+
 		GameObject bullet;
 		GameObject flash;
 		//Debug.Log("in enemy shoot " + yDirection);
