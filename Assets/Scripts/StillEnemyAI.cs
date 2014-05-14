@@ -19,6 +19,7 @@ public class StillEnemyAI : MonoBehaviour
 
 	private int _deathRightStateID;
 	private int _deathLeftStateID;
+	bool deathCounter = false;
 
 	private bool _isDead;
 
@@ -126,19 +127,34 @@ public class StillEnemyAI : MonoBehaviour
 		_isDead = true;
 		anim.SetBool("isDead", _isDead);
 
-		if(facing == 1) { //Right
-			anim.Play (_deathRightStateID, 0, 0);
-		}
-		else if(facing == 0) {
+		if(facing == 1 && !deathCounter)
+		{ //Right
 			anim.Play (_deathLeftStateID, 0, 0);
+			deathCounter = true;
+			Debug.Log("started playing");
+		}
+		else if(facing == 0 && !deathCounter) 
+		{
+			anim.Play (_deathRightStateID, 0, 0);
+			deathCounter = true;
 		}
 		
-		if(anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).nameHash == 154171580) {
+		/*if(anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).nameHash == _deathRightStateID)
+		{
+			Debug.Log("destroying");
 			GameObject.Destroy(this.gameObject);
 		}
 
-		if(anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).nameHash == 889664582) {
+		if(anim.IsInTransition(0) && anim.GetCurrentAnimatorStateInfo(0).nameHash == _deathLeftStateID)
+		{
+			Debug.Log("destroying");
 			GameObject.Destroy(this.gameObject);
-		}
+		}*/
+		Invoke("DestroySelf", .7f); //FUCK IT
+	}
+	
+	void DestroySelf()
+	{
+		GameObject.Destroy(this.gameObject);
 	}
 }

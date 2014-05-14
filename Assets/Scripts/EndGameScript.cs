@@ -13,7 +13,8 @@ public class EndGameScript : MonoBehaviour
 	{
 		if(collider.gameObject.tag == "Player")
 		{
-			GameController.Instance().EndGame();
+			GameController.Instance().EndGame(this.transform.position.x);
+			
 		}
 	}	
 		

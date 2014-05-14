@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour
 	public bool isPlayerBullet;
 	public int directionX = 0; //0 = right, 1 = left
 	public int directionY = 0;
+	float ysizeDeath = .0001f;
+	float ycenterDeath = -.3f;
 	bool isVisible;
 	
 	// Use this for initialization
@@ -61,19 +63,27 @@ public class Bullet : MonoBehaviour
 	
 	void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(collision.gameObject.tag != "Player" && isPlayerBullet)
+		if(collision.gameObject.tag != "Player" && isPlayerBullet && collision.GetComponent<BoxCollider2D>().enabled)
 		{
 			//Debug.Log ("hitting");
 			if(collision.tag == "Enemy")
 			{
 				Debug.Log("hitting enemy");
 				collision.gameObject.GetComponent<StillEnemyAI>().takeDamage(damage);
+				Vector2 newSize = new Vector2(collision.GetComponent<BoxCollider2D>().size.x, .0001f);
+				collision.GetComponent<BoxCollider2D>().size = newSize;
+				Vector2 newCenter = new Vector2(collision.GetComponent<BoxCollider2D>().size.x, -.25f);
+				collision.GetComponent<BoxCollider2D>().center = newCenter;
 			}
 			else if(collision.tag == "FleeEnemy")
 			{
 				Debug.Log("hitting enemy");
 				//must fix this
 				collision.gameObject.GetComponent<FleeEnemyAI>().takeDamage(damage);
+				Vector2 newSize = new Vector2(collision.GetComponent<BoxCollider2D>().size.x, .0001f);
+				collision.GetComponent<BoxCollider2D>().size = newSize;
+				Vector2 newCenter = new Vector2(collision.GetComponent<BoxCollider2D>().size.x, -.25f);
+				collision.GetComponent<BoxCollider2D>().center = newCenter;
 			}
 			Destroy(this.gameObject);
 		}

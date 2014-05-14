@@ -22,6 +22,7 @@ public class MovementController : MonoBehaviour
 	
 	bool canShoot = true;
 	bool controlsLocked;
+	int idleHash;
 	
 	Animator anim;
 
@@ -35,6 +36,8 @@ public class MovementController : MonoBehaviour
 		anim = GetComponent<Animator>();
 		isFacingRight = true;
 		dead = false;
+		
+		idleHash = Animator.StringToHash ("Base Layer.IdleRight");
 	}
 	
 	public static MovementController Instance()
@@ -69,8 +72,8 @@ public class MovementController : MonoBehaviour
 	public void lockControls()
 	{
 		GameController.Instance().controlsLocked = true;
-		
-		
+		if(!dead)
+			anim.Play(idleHash, 0 , 0);
 	}
 	
 	public void unlockControls()

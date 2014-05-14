@@ -59,6 +59,7 @@ public class PlayerSetUp : MonoBehaviour {
 			if(_health <= 0)
 			{
 				//GameController.Instance().controlsLocked = true;
+				MovementController.Instance().death();
 				MovementController.Instance().lockControls();
 				//anim.SetBool("PlayedAnimation", true);
 				playerDeath("Health");
@@ -103,7 +104,6 @@ public class PlayerSetUp : MonoBehaviour {
 		}
 		else if(condition == "Fall")
 		{
-			
 			_isDead = true;
 			GameController.Instance().RestartLevel(this.transform.position, _currentCheckPoint);
 			GameObject.Destroy(this.gameObject);

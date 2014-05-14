@@ -5,12 +5,14 @@ public class GameController : MonoBehaviour
 {
 	public GameObject playerPrefab;
 	static GameController instance;
+	float endGamePos;
 
 	public enum LevelState
 	{
 		GamePlay,
 		Restarting,
-		FlashBanged
+		FlashBanged,
+		EndGame
 	}
 	
 	public LevelState levelState;
@@ -98,15 +100,22 @@ public class GameController : MonoBehaviour
 		}
 		else if (currentAlpha.a == 1)
 		{
-			//if(checkPointMarker == 1)
-			Application.LoadLevel(Application.loadedLevel);
-			instance.SetupLevel(checkPointMarker);
-			Debug.Log("Restarting level via manager");
-			//Vector2 startPos = new Vector3(-2.2f, 1.8f, -10f);
-			//CameraController.Instance().transform.position = startPos;
-			fadeCounter *= -1;
-			Invoke("fade", 2f);
-			//fade (checkPointMarker);
+			if(levelState != LevelState.EndGame)
+			{
+				//if(checkPointMarker == 1)
+				Application.LoadLevel(Application.loadedLevel);
+				instance.SetupLevel(checkPointMarker);
+				Debug.Log("Restarting level via manager");
+				//Vector2 startPos = new Vector3(-2.2f, 1.8f, -10f);
+				//CameraController.Instance().transform.position = startPos;
+				fadeCounter *= -1;
+				Invoke("fade", 2f);
+				//fade (checkPointMarker);
+			}
+			else
+			{
+				Invoke("LoadCredits", 1f);
+			}
 		}
 		else
 		{
@@ -132,16 +141,20 @@ public class GameController : MonoBehaviour
 		Invoke ("RemoveBlackScreen", 1f);*/
 	}
 	
-	public void EndGame()
+	public void EndGame(float xPos)
 	{
-		controlsLocked = true;
+		endGamePos = xPos;
+		Vector3 deathLocation = new Vector3(xPos, 1.8f, 0);
+		blackScreen.transform.position = deathLocation;
+		levelState = LevelState.EndGame;
+		/*controlsLocked = true;
 		Color newAlpha = Color.black;
 		newAlpha.a = 1;
 		blackScreen.GetComponent<SpriteRenderer>().color = newAlpha;
 		player = GameObject.FindGameObjectWithTag("Player");
 		Vector3 screenLocation = new Vector3(player.transform.position.x, 1.8f, 0);
 		blackScreen.transform.position = screenLocation;
-		Invoke("LoadCredits", 1f);
+		Invoke("LoadCredits", 1f);*/
 	}
 	
 	public void LoadCredits()
@@ -182,6 +195,14 @@ public class GameController : MonoBehaviour
 		{
 			Vector2 temp = new Vector2(80, player.transform.position.y);
 			player.transform.position = temp;
+		}
+		else if (levelState == LevelState.EndGame)
+		{
+			//controlsLocked = true;
+			Vector2 temp2 = new Vector2(endGamePos, player.transform.position.y);
+			player.transform.position = temp2;
+			MovementController.Instance().lockControls();
+			fade (currentCheckpoint);
 		}
 	}
 }

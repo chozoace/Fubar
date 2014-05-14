@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Gernade.cs" />
      <Compile Include="Assets\Scripts\Gun.cs" />
+     <Compile Include="Assets\Scripts\Helpers\SoundEffectHelper.cs" />
      <Compile Include="Assets\Scripts\MovementController.cs" />
      <Compile Include="Assets\Scripts\ObjectFactory.cs" />
      <Compile Include="Assets\Scripts\Pistol.cs" />
@@ -66,6 +67,7 @@
      <Compile Include="Assets\Scripts\ScoreUI.cs" />
      <Compile Include="Assets\Scripts\StillEnemyAI.cs" />
      <Compile Include="Assets\Scripts\WhiteScreenScript.cs" />
+     <None Include="Assets\Test.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
