@@ -112,7 +112,6 @@ public class StillEnemyAI : MonoBehaviour
 	public void takeDamage(int theDamage)
 	{
 		health -= theDamage;
-		Debug.Log (health);
 		
 		if(health <= 0)
 		{
@@ -131,7 +130,7 @@ public class StillEnemyAI : MonoBehaviour
 		{ //Right
 			anim.Play (_deathLeftStateID, 0, 0);
 			deathCounter = true;
-			Debug.Log("started playing");
+			//Debug.Log("started playing");
 		}
 		else if(facing == 0 && !deathCounter) 
 		{

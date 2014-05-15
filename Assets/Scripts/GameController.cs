@@ -66,12 +66,12 @@ public class GameController : MonoBehaviour
 	
 	void SetupLevel(int checkpoint)
 	{
-		Debug.Log("gamemanager start");
+		//Debug.Log("gamemanager start");
 		//create Player from player spawnpoint
 		GameObject playerSpawnPoint;
 		if(checkpoint == 1)
 		{	
-			Debug.Log("first checkpoint");
+			//Debug.Log("first checkpoint");
 			playerSpawnPoint = GameObject.FindGameObjectWithTag("playerSpawn");
 		}
 		else

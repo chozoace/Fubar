@@ -102,7 +102,7 @@ public class MovementController : MonoBehaviour
 		if(Input.GetKeyDown (moveRight))
 		{
 			canRightMove = true;
-			Debug.Log ("Pressing down right");
+			//Debug.Log ("Pressing down right");
 			if(!canLeftMove)
 			{
 				facing = 0;
@@ -123,7 +123,6 @@ public class MovementController : MonoBehaviour
 		
 		if(Input.GetKeyDown (shoot))
 		{			
-			Debug.Log ("player shoot");
 			if(canShoot)
 			{
 				canShoot = myGun.shoot(facing, yDirection);

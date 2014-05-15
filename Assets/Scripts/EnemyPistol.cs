@@ -8,6 +8,10 @@ public class EnemyPistol : Gun
 	[SerializeField] GameObject upFlashPrefab;
 	[SerializeField] GameObject downFlashPrefab;
 	
+	[SerializeField] GameObject flashLeftPrefab;
+	[SerializeField] GameObject upLeftFlashPrefab;
+	[SerializeField] GameObject downLeftFlashPrefab;
+	
 	public EnemyPistol()
 	{
 		
@@ -30,19 +34,19 @@ public class EnemyPistol : Gun
 			//.2, .06f
 			if(yDirection == 0)
 			{
-				flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y + .06f), Quaternion.identity));
+				flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x + .3f, myObject.transform.position.y + .06f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
 				bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .1f),Quaternion.identity));
 			}
 			else if(yDirection == 1)
 			{
-				flash = (GameObject)(Instantiate (upFlashPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y + .06f), Quaternion.identity));
+				flash = (GameObject)(Instantiate (upFlashPrefab, new Vector2(myObject.transform.position.x + .32f, myObject.transform.position.y + .32f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
 				bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y + .2f),Quaternion.identity));
 			}
 			else //ydirection = -1
 			{
-				flash = (GameObject)(Instantiate (downFlashPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y + .06f), Quaternion.identity));
+				flash = (GameObject)(Instantiate (downFlashPrefab, new Vector2(myObject.transform.position.x + .32f, myObject.transform.position.y - .33f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
 				bullet = (GameObject)(Instantiate(bulletPrefab, new Vector2(myObject.transform.position.x + .2f, myObject.transform.position.y - .48f),Quaternion.identity));
 			}
@@ -52,19 +56,19 @@ public class EnemyPistol : Gun
 		{
 			if(yDirection == 0)
 			{
-				flash = (GameObject)(Instantiate (flashPrefab, new Vector2(myObject.transform.position.x - .4f, myObject.transform.position.y - .06f), Quaternion.identity));
+				flash = (GameObject)(Instantiate (flashLeftPrefab, new Vector2(myObject.transform.position.x - .3f, myObject.transform.position.y - 0f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
 				bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .1f) ,Quaternion.identity));;
 			}
 			else if(yDirection == 1)
 			{
-				flash = (GameObject)(Instantiate (upFlashPrefab, new Vector2(myObject.transform.position.x - .4f, myObject.transform.position.y - .06f), Quaternion.identity));
+				flash = (GameObject)(Instantiate (upLeftFlashPrefab, new Vector2(myObject.transform.position.x - .32f, myObject.transform.position.y + .32f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
 				bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y + .2f) ,Quaternion.identity));;
 			}
 			else //ydirection = -1
 			{
-				flash = (GameObject)(Instantiate (downFlashPrefab, new Vector2(myObject.transform.position.x - .4f, myObject.transform.position.y - .06f), Quaternion.identity));
+				flash = (GameObject)(Instantiate (downLeftFlashPrefab, new Vector2(myObject.transform.position.x - .33f, myObject.transform.position.y - .33f), Quaternion.identity));
 				flash.GetComponent<BulletFlashScript>().Init(myObject, facing, yDirection);
 				bullet = (GameObject)(Instantiate(bulletPrefab,new Vector2(myObject.transform.position.x - .2f, myObject.transform.position.y - .48f) ,Quaternion.identity));;
 			}

@@ -68,7 +68,6 @@ public class Bullet : MonoBehaviour
 			//Debug.Log ("hitting");
 			if(collision.tag == "Enemy")
 			{
-				Debug.Log("hitting enemy");
 				collision.gameObject.GetComponent<StillEnemyAI>().takeDamage(damage);
 				Vector2 newSize = new Vector2(collision.GetComponent<BoxCollider2D>().size.x, .0001f);
 				collision.GetComponent<BoxCollider2D>().size = newSize;

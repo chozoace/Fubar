@@ -38,13 +38,13 @@ public class BulletFlashScript : MonoBehaviour
 		myYdirection = yDirection;
 		player = playerRef;
 		facing = facingRef;
-		if(facing == -1)
+		/*if(facing == -1)
 		{
 			this.transform.position = new Vector2(player.transform.position.x - .4f, player.transform.position.y + .06f);
 			currentScale = transform.localScale;
 			currentScale.x *= -1;
 			transform.localScale = currentScale;
-		}
+		}*/
 		playerReferenced = true;
 	}
 	
@@ -55,8 +55,6 @@ public class BulletFlashScript : MonoBehaviour
 	
 	void Update () 
 	{
-		//find a way to fix the weird flip before bullet flash appears. Bullet flash gets called from pistol or enemy
-		//pistol
 		if(playerReferenced == true)
 		{
 			//Debug.Log ("Current Scale:" + currentScale.x);
@@ -81,18 +79,18 @@ public class BulletFlashScript : MonoBehaviour
 						if(player.tag == "Player")
 							this.transform.position = new Vector2(player.transform.position.x + .3f, player.transform.position.y - 0f);
 						else if(player.tag == "Enemy")
-							this.transform.position = new Vector2(player.transform.position.x + .2f, player.transform.position.y + .06f);
+							this.transform.position = new Vector2(player.transform.position.x + .17f, player.transform.position.y + 0f);
 					}
 					else if(myYdirection == 1)
 					{
 						//up
 						if(player.tag == "Player")
 						{
-							this.transform.position = new Vector2(player.transform.position.x + .23f, player.transform.position.y + .37f);
+							this.transform.position = new Vector2(player.transform.position.x + .32f, player.transform.position.y + .32f);
 						}
 						else if(player.tag == "Enemy")
 						{
-							this.transform.position = new Vector2(player.transform.position.x + .23f, player.transform.position.y + .37f);
+							this.transform.position = new Vector2(player.transform.position.x + .32f, player.transform.position.y + .32f);
 						}
 					}
 					else if(myYdirection == -1)
@@ -100,11 +98,11 @@ public class BulletFlashScript : MonoBehaviour
 						//down
 						if(player.tag == "Player")
 						{
-							this.transform.position = new Vector2(player.transform.position.x + .23f, player.transform.position.y - .3f);
+							this.transform.position = new Vector2(player.transform.position.x + .32f, player.transform.position.y - .33f);
 						}
 						else if(player.tag == "Enemy")
 						{
-							this.transform.position = new Vector2(player.transform.position.x + .23f, player.transform.position.y - .25f);
+							this.transform.position = new Vector2(player.transform.position.x + .32f, player.transform.position.y - .33f);
 							
 						}
 					}
@@ -114,53 +112,53 @@ public class BulletFlashScript : MonoBehaviour
 					if(myYdirection == 0)
 					{
 						//Debug.Log ("In left shoot");
-						this.transform.position = new Vector2(player.transform.position.x - .4f, player.transform.position.y + .06f);
-						if(currentScale.x != -1)
+						this.transform.position = new Vector2(player.transform.position.x - .3f, player.transform.position.y + 0f);
+						/*if(currentScale.x != -1)
 						{
 							currentScale = transform.localScale;
 							currentScale.x *= -1;
 							transform.localScale = currentScale;
-						}
+						}*/
 					}
 					else if(myYdirection == 1)
 					{
 						//up
 						if(player.tag == "Player")
 						{
-							this.transform.position = new Vector2(player.transform.position.x - .23f, player.transform.position.y + .37f);
-							
+							this.transform.position = new Vector2(player.transform.position.x - .32f, player.transform.position.y + .32f);
 						}
 						else if(player.tag == "Enemy")
 						{
-							this.transform.position = new Vector2(player.transform.position.x - .23f, player.transform.position.y + .37f);
+							this.transform.position = new Vector2(player.transform.position.x - .32f, player.transform.position.y + .32f);
 							
 						}
-						if(currentScale.x != -1)
+						/*if(currentScale.x != -1)
 						{
 							currentScale = transform.localScale;
 							currentScale.x *= -1;
 							transform.localScale = currentScale;
-						}
+						}*/
 					}
 					else if(myYdirection == -1)
 					{
 						//down
 						if(player.tag == "Player")
 						{
-							this.transform.position = new Vector2(player.transform.position.x - .23f, player.transform.position.y - .3f);
+							Debug.Log ("playerdownLeft");
+							this.transform.position = new Vector2(player.transform.position.x - .32f, player.transform.position.y - .33f);
 							
 						}
 						else if(player.tag == "Enemy")
 						{
-							this.transform.position = new Vector2(player.transform.position.x - .23f, player.transform.position.y - .25f);
+							this.transform.position = new Vector2(player.transform.position.x - .32f, player.transform.position.y - .33f);
 							
 						}
-						if(currentScale.x != -1)
+						/*if(currentScale.x != -1)
 						{
 							currentScale = transform.localScale;
 							currentScale.x *= -1;
 							transform.localScale = currentScale;
-						}
+						}*/
 					}
 				}
 			}

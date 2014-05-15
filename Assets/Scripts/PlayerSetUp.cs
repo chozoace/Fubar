@@ -16,7 +16,10 @@ public class PlayerSetUp : MonoBehaviour {
 
 	private bool _isDead;
 	[SerializeField] GameObject BlackScreenPrefab;
+	[SerializeField] GameObject FlinchRightPrefab;
+	[SerializeField] GameObject FlinchLeftPrefab;
 	GameObject blackScreen;
+	GameObject flinchScreen;
 	bool deathCounter;
 
 	void Awake()
@@ -56,6 +59,11 @@ public class PlayerSetUp : MonoBehaviour {
 				playerDeath ("Fall");
 			}
 			
+			if(flinchScreen != null)
+			{
+				flinchScreen.transform.position = this.transform.position;
+			}
+			
 			if(_health <= 0)
 			{
 				//GameController.Instance().controlsLocked = true;
@@ -70,7 +78,14 @@ public class PlayerSetUp : MonoBehaviour {
 	public void takeDamage(int damage)
 	{
 		_health -= damage;
+		flinchScreen = (GameObject)(Instantiate(FlinchRightPrefab, this.transform.position, Quaternion.identity));
+		Invoke("DestroyFlinch", .5f);
 		this.GetComponent<PlayerHealth>().AdjustCurrentHealth(damage*-1);
+	}
+	
+	void DestroyFlinch()
+	{
+		GameObject.Destroy(flinchScreen.gameObject);
 	}
 	
 	public void playerDeath(string condition)
