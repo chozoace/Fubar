@@ -16,6 +16,7 @@ public class Gernade : MonoBehaviour {
 	float fadeCounter = -.01f;
 
 	private LensFlare _lensFlare;
+	private bool _playSoundEffect = false;
 
 	void LeftForce()
 	{
@@ -78,6 +79,11 @@ public class Gernade : MonoBehaviour {
 		if (other.gameObject.tag == "Player") {
 			if(!madeContact)
 			{
+				if(_playSoundEffect == false) {
+					_playSoundEffect = true;
+					SoundEffectHelper.Instance.MakeSoundEffect(SoundEffectHelper.SoundEffects.FlashBang);
+				}
+
 				whiteScreen = (GameObject)Instantiate(WhiteScreenPrefab, new Vector3(other.transform.position.x, 1.8f, 0), Quaternion.identity);
 				GameController.Instance().levelState = GameController.LevelState.FlashBanged;
 				GetComponent<SpriteRenderer>().enabled = false;
