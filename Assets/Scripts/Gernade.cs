@@ -18,6 +18,29 @@ public class Gernade : MonoBehaviour {
 	private LensFlare _lensFlare;
 	private bool _playSoundEffect = false;
 
+
+	//ForCrossFade
+	private float _startTime;
+	private float _endTime;
+
+	private float _duration = 20.0f;
+
+	private AudioSource _beginningMusic;
+	private AudioSource _endingMusic;
+
+	private bool _isCrossfading = false;
+	//
+
+	//http://adaptive.captivatingsound.com/viewtopic.php?id=26
+	void Crossfade() {
+		float x = 2.1f / _duration;
+
+		_endingMusic.volume += (5 + x);
+		_beginningMusic.volume += (0.1f - x);
+
+	}
+
+
 	void LeftForce()
 	{
 		rigidbody2D.AddForce (new Vector2(_leftForce, 0));
@@ -56,6 +79,10 @@ public class Gernade : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		_beginningMusic = GameObject.Find("Beginning").GetComponent<AudioSource>();
+		_endingMusic = GameObject.Find("Ending").GetComponent<AudioSource>();
+
 		_lensFlare = GetComponent<LensFlare> ();
 		LeftForce ();
 	}
@@ -63,6 +90,7 @@ public class Gernade : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		Crossfade();
 		if(GameController.Instance().levelState == GameController.LevelState.FlashBanged && startedFade)
 		{
 			fadeOut();
@@ -83,6 +111,7 @@ public class Gernade : MonoBehaviour {
 					_playSoundEffect = true;
 					SoundEffectHelper.Instance.MakeSoundEffect(SoundEffectHelper.SoundEffects.FlashBang);
 				}
+
 
 				whiteScreen = (GameObject)Instantiate(WhiteScreenPrefab, new Vector3(other.transform.position.x, 1.8f, 0), Quaternion.identity);
 				GameController.Instance().levelState = GameController.LevelState.FlashBanged;
