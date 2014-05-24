@@ -74,7 +74,7 @@ public class CameraController : MonoBehaviour
 		{
 			player = GameObject.FindGameObjectWithTag("Player");
 			float camXPos = Mathf.Clamp((float)(player.transform.position.x), leftBorder, rightBorder);
-			transform.position = new Vector3(camXPos, 1.8f, -10);
+			transform.position = new Vector3(camXPos, -0.4f, -10);
 			//CheckKeysUp();
 			//CheckKeysDown();
 			//UpdateMovement();
