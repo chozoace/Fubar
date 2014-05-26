@@ -113,7 +113,7 @@ public class Gernade : MonoBehaviour {
 				}
 
 
-				whiteScreen = (GameObject)Instantiate(WhiteScreenPrefab, new Vector3(other.transform.position.x, 1.8f, 0), Quaternion.identity);
+				whiteScreen = (GameObject)Instantiate(WhiteScreenPrefab, new Vector3(other.transform.position.x, -0.4f, 0), Quaternion.identity);
 				GameController.Instance().levelState = GameController.LevelState.FlashBanged;
 				GetComponent<SpriteRenderer>().enabled = false;
 				Invoke("fadeOut", 2f);

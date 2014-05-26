@@ -89,15 +89,15 @@ public class MovementController : MonoBehaviour
 		}
 		else if(Input.GetKey (aimUp) && this.rigidbody2D.velocity.x == 0 && this.rigidbody2D.velocity.y == 0)
 		{
-			isAimUp = true;
+			/*isAimUp = true;
 			yDirection = 1;
-			anim.SetBool("AimUp", isAimUp);
+			anim.SetBool("AimUp", isAimUp);*/
 		}
 		if(Input.GetKey (aimDown) && this.rigidbody2D.velocity.x == 0 && this.rigidbody2D.velocity.y == 0)
 		{
-			isAimDown = true;
+			/*isAimDown = true;
 			yDirection = -1;
-			anim.SetBool("AimDown", isAimDown);
+			anim.SetBool("AimDown", isAimDown);*/
 		}
 		if(Input.GetKeyDown (moveRight))
 		{
@@ -126,10 +126,16 @@ public class MovementController : MonoBehaviour
 			if(canShoot)
 			{
 				canShoot = myGun.shoot(facing, yDirection);
+                Invoke("reload", .3f);
 			}
 		}
 		//Debug.Log(facing);
 	}
+
+    void reload()
+    {
+        canShoot = true;
+    }
 	
 	void CheckKeysUp()
 	{
@@ -157,7 +163,7 @@ public class MovementController : MonoBehaviour
 		}	
 		if(Input.GetKeyUp (shoot))
 		{
-			canShoot = true;
+			//canShoot = true;
 		}
 		if(!canLeftMove && !canRightMove)
 		{

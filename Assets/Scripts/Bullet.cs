@@ -90,7 +90,7 @@ public class Bullet : MonoBehaviour
 		{
 			if(collision.gameObject.tag == "Player")
 			{
-				collision.gameObject.GetComponent<PlayerSetUp>().takeDamage(damage);
+				collision.gameObject.GetComponent<PlayerSetUp>().takeDamage(damage, rigidbody2D.velocity.x);
 				//Debug.Log ("player hit");
 			}
 			Destroy(this.gameObject);	

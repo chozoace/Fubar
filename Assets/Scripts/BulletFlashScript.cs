@@ -5,6 +5,7 @@ public class BulletFlashScript : MonoBehaviour
 {
 	Animator anim;
 	public int facing;
+    float initialFacing;
 	int prevFacing;
 	bool playerReferenced;
 	public GameObject player;
@@ -38,6 +39,7 @@ public class BulletFlashScript : MonoBehaviour
 		myYdirection = yDirection;
 		player = playerRef;
 		facing = facingRef;
+        initialFacing= facingRef;
 		/*if(facing == -1)
 		{
 			this.transform.position = new Vector2(player.transform.position.x - .4f, player.transform.position.y + .06f);
@@ -68,7 +70,11 @@ public class BulletFlashScript : MonoBehaviour
 			else if (player.tag == "Enemy")
 				facing = player.GetComponent<StillEnemyAI>().getFacing();
 		
-			
+			if(initialFacing != facing)
+            {
+                GameObject.Destroy(this.gameObject);
+            }
+
 			if(player != null)
 			{
 				if(facing == 0)

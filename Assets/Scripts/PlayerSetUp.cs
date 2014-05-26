@@ -75,10 +75,19 @@ public class PlayerSetUp : MonoBehaviour {
 		}
 	}
 	
-	public void takeDamage(int damage)
+	public void takeDamage(int damage, float bulletSpeed)
 	{
 		_health -= damage;
-		flinchScreen = (GameObject)(Instantiate(FlinchRightPrefab, this.transform.position, Quaternion.identity));
+        if (bulletSpeed < 0)
+        {
+            Debug.Log("RightFlinch");
+            flinchScreen = (GameObject)(Instantiate(FlinchRightPrefab, this.transform.position, Quaternion.identity));
+        }
+        else if (bulletSpeed > 1)
+        {
+            Debug.Log("LeftFlinch");
+            flinchScreen = (GameObject)(Instantiate(FlinchLeftPrefab, this.transform.position, Quaternion.identity));
+        }
 		Invoke("DestroyFlinch", .5f);
 		this.GetComponent<PlayerHealth>().AdjustCurrentHealth(damage*-1);
 	}

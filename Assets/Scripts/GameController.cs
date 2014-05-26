@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
 	{
 		instance = this;
 		SetupLevel(1);
-		blackScreen = (GameObject)Instantiate(BlackScreenPrefab, new Vector3(player.transform.position.x, 1.8f, 0), Quaternion.identity);
+		blackScreen = (GameObject)Instantiate(BlackScreenPrefab, new Vector3(player.transform.position.x, -0.4f, 0), Quaternion.identity);
 		Color initialAlpha = Color.black;
 		initialAlpha.a = 0;
 		blackScreen.GetComponent<SpriteRenderer>().color = initialAlpha;
@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
 		controlsLocked = true;
 		//fade(checkPointMarker);
 		currentCheckpoint = checkPointMarker;
-		Vector3 deathLocation = new Vector3(playerDeathPos.x, 1.8f, 0);
+		Vector3 deathLocation = new Vector3(playerDeathPos.x, -0.4f, 0);
 		blackScreen.transform.position = deathLocation;
 		levelState = LevelState.Restarting;
 		
@@ -144,7 +144,7 @@ public class GameController : MonoBehaviour
 	public void EndGame(float xPos)
 	{
 		endGamePos = xPos;
-		Vector3 deathLocation = new Vector3(xPos, 1.8f, 0);
+		Vector3 deathLocation = new Vector3(xPos, -0.4f, 0);
 		blackScreen.transform.position = deathLocation;
 		levelState = LevelState.EndGame;
 		/*controlsLocked = true;
@@ -202,6 +202,7 @@ public class GameController : MonoBehaviour
 			Vector2 temp2 = new Vector2(endGamePos, player.transform.position.y);
 			player.transform.position = temp2;
 			MovementController.Instance().lockControls();
+            fadeCounter = .007f;
 			fade (currentCheckpoint);
 		}
 	}
